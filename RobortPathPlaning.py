@@ -226,3 +226,20 @@ def main(win, width):
                     start = None
                 elif spot == end:
                     end = None
+		
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE and start and end:
+                    for row in grid:
+                        for spot in row:
+                            spot.update_neighbors(grid)
+
+                    algorithm(lambda: draw(win, grid, ROWS, width), grid, start, end)
+
+                if event.key == pygame.K_c:
+                    start = None
+                    end = None
+                    grid = make_grid(ROWS, width)
+
+    pygame.quit()
+
+main(WIN, WIDTH)
